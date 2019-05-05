@@ -48,6 +48,10 @@ public class Plotter {
 
         Xmin = graphParams.getIntervalFrom();
         Xmax = graphParams.getIntervalTo();
+
+        Ymin = graphParams.getMinY();
+        Ymax = graphParams.getMaxY();
+
         status = graphParams.isNeedGrid();
         gclr = graphParams.getGridColor();
         clr = graphParams.getGraphColor();

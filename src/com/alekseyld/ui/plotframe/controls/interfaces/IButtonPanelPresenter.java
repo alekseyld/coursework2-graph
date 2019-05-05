@@ -21,9 +21,14 @@ public interface IButtonPanelPresenter extends IPresenter<IButtonPanelView> {
     void intervalToChanged(double xmax);
     void intervalFromChanged(double xmin);
     void paramAChanged(double a);
+    void minYChanged(double ymin);
+    void maxYChanged(double ymax);
 
     double getIntervalFrom();
     double getIntervalTo();
+
+    double getMinY();
+    double getMaxY();
 
     void saveGraph(File file);
     void loadGraph(File file);

@@ -26,8 +26,10 @@ public class ButtonPanel extends AbstractViewPanel<IButtonPanelPresenter> implem
 
     private Choice gridColorChoice;
 
-    private TextField fromTextField;
+    private TextField minYTextField;
+    private TextField maxYTextField;
 
+    private TextField fromTextField;
     private TextField intervalTextField;
 
     private Button buttonSave;
@@ -47,7 +49,7 @@ public class ButtonPanel extends AbstractViewPanel<IButtonPanelPresenter> implem
         setBounds(xP, yP, wP, hP);
         setBackground(Color.LIGHT_GRAY);
 
-        labels = new Label[6];
+        labels = new Label[7];
 
         SetUpColorsPickers(wP);
 
@@ -88,8 +90,8 @@ public class ButtonPanel extends AbstractViewPanel<IButtonPanelPresenter> implem
         buttonLoad = new Button("Открыть");
         buttonClose = new Button("Закрыть");
 
-        buttonSave.setBounds(5, hP - 115, wP - 10, 30);
-        buttonLoad.setBounds(5, hP - 75, wP - 10, 30);
+        buttonSave.setBounds(5, hP - 95, wP - 10, 30);
+        buttonLoad.setBounds(5, hP - 65, wP - 10, 30);
         buttonClose.setBounds(5, hP - 35, wP - 10, 30);
 
         buttonClose.addActionListener(e -> System.exit(0));
@@ -105,26 +107,89 @@ public class ButtonPanel extends AbstractViewPanel<IButtonPanelPresenter> implem
     private void SetUpParameterPickers(int wP) {
         labels[4] = new Label("График функции y(x)=a^x", Label.CENTER);
         labels[4].setFont(new Font("Aria", Font.BOLD, FONT_SIZE));
-        labels[4].setBounds(5,  190, wP - 10, 30);
+        labels[4].setBounds(5,  180, wP - 10, 30);
         add(labels[4]);
 
-        labels[1] = new Label("Интервал по X: ", Label.CENTER);
+        labels[1] = new Label("от у= ", Label.LEFT);
         labels[1].setFont(new Font("Aria", Font.BOLD, FONT_SIZE));
-        labels[1].setBounds(5,  220, wP - 10, 30);
+        labels[1].setBounds(5,  215, 75, 20);
         add(labels[1]);
+
+        labels[6] = new Label("до у= ", Label.LEFT);
+        labels[6].setFont(new Font("Aria", Font.BOLD, FONT_SIZE));
+        labels[6].setBounds(5,  240, 75, 20);
+        add(labels[6]);
 
         labels[2] = new Label("От x= ", Label.LEFT);
         labels[2].setFont(new Font("Aria", Font.BOLD, FONT_SIZE));
-        labels[2].setBounds(5,  250, 75, 20);
+        labels[2].setBounds(5,  265, 75, 20);
         add(labels[2]);
 
         labels[5] = new Label("До x= ", Label.LEFT);
         labels[5].setFont(new Font("Aria", Font.BOLD, FONT_SIZE));
-        labels[5].setBounds(5,  275, 75, 20);
+        labels[5].setBounds(5,  290, 75, 20);
         add(labels[5]);
 
+        minYTextField= new TextField("0");
+        minYTextField.setBounds(80, 215, 60, 20);
+
+        minYTextField.addTextListener(e -> {
+
+            Double result = parseDoubleAndShowError(minYTextField.getText(), 100000,
+                    "минимальный y");
+
+            if (result != null) {
+                if (result < 0) {
+                    showError("Минимальный Y должен быть больше 0");
+                    minYTextField.setText(Double.toString(mPresenter.getMinY()));
+                    return;
+                }
+
+                if (result > mPresenter.getMaxY()) {
+                    showError("Минимальный значение не может быть больше максимального Y");
+                    minYTextField.setText(Double.toString(mPresenter.getMinY()));
+                } else {
+                    mPresenter.minYChanged(result);
+                }
+
+            } else {
+                minYTextField.setText("");
+            }
+        });
+
+        add(minYTextField);
+
+        maxYTextField= new TextField("50");
+        maxYTextField.setBounds(80, 240, 60, 20);
+
+        maxYTextField.addTextListener(e -> {
+
+            Double result = parseDoubleAndShowError(maxYTextField.getText(), 100000,
+                    "максимальный y");
+
+            if (result != null) {
+                if (result < 0) {
+                    showError("Максимальный Y должен быть больше 0");
+                    maxYTextField.setText(Double.toString(mPresenter.getMaxY()));
+                    return;
+                }
+
+                if (result < mPresenter.getMinY()) {
+                    showError("Максимального значение не может быть меньше минимального Y");
+                    maxYTextField.setText(Double.toString(mPresenter.getMaxY()));
+                } else {
+                    mPresenter.maxYChanged(result);
+                }
+
+            } else {
+                maxYTextField.setText("");
+            }
+        });
+
+        add(maxYTextField);
+
         fromTextField = new TextField("0");
-        fromTextField.setBounds(80, 250, 60, 20);
+        fromTextField.setBounds(80, 265, 60, 20);
 
         fromTextField.addTextListener(e -> {
 
@@ -150,7 +215,7 @@ public class ButtonPanel extends AbstractViewPanel<IButtonPanelPresenter> implem
         add(fromTextField);
 
         intervalTextField = new TextField("10");
-        intervalTextField.setBounds(80, 275, 60, 20);
+        intervalTextField.setBounds(80, 290, 60, 20);
 
         intervalTextField.addTextListener(e -> {
 
@@ -175,11 +240,11 @@ public class ButtonPanel extends AbstractViewPanel<IButtonPanelPresenter> implem
 
         labels[3] = new Label("Параметр а = ", Label.CENTER);
         labels[3].setFont(new Font("Aria", Font.BOLD, FONT_SIZE));
-        labels[3].setBounds(5,  300, 90, 20);
+        labels[3].setBounds(5,  315, 90, 20);
         add(labels[3]);
 
         paramTextField = new TextField("2");
-        paramTextField.setBounds(90, 300, 55, 20);
+        paramTextField.setBounds(90, 315, 55, 20);
 
         paramTextField.addTextListener(e -> {
             Double result = parseDoubleAndShowError(paramTextField.getText(), 100000,
@@ -300,6 +365,7 @@ public class ButtonPanel extends AbstractViewPanel<IButtonPanelPresenter> implem
     private void onSaveButtonListener(ActionEvent e) {
         JFileChooser fileChooser = getFileChooser();
         fileChooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
+        fileChooser.setDialogTitle("Сохранить график");
 
         int ret = fileChooser.showDialog(null, "Сохранить");
         if (ret == JFileChooser.APPROVE_OPTION) {

@@ -108,4 +108,28 @@ public class ButtonPanelPresenter extends AbstractPresenter<IButtonPanelView> im
     public double getIntervalTo() {
         return mGraphParamsService.get().getIntervalTo();
     }
+
+    @Override
+    public void minYChanged(double ymin) {
+        updateGraphParams(
+                mGraphParamsService.get().setMinY(ymin)
+        );
+    }
+
+    @Override
+    public void maxYChanged(double ymax) {
+        updateGraphParams(
+                mGraphParamsService.get().setMaxY(ymax)
+        );
+    }
+
+    @Override
+    public double getMinY() {
+        return mGraphParamsService.get().getMinY();
+    }
+
+    @Override
+    public double getMaxY() {
+        return mGraphParamsService.get().getMaxY();
+    }
 }
