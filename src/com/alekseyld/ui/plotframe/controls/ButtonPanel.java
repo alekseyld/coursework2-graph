@@ -240,11 +240,11 @@ public class ButtonPanel extends AbstractViewPanel<IButtonPanelPresenter> implem
 
         labels[3] = new Label("Параметр а = ", Label.CENTER);
         labels[3].setFont(new Font("Aria", Font.BOLD, FONT_SIZE));
-        labels[3].setBounds(5,  315, 90, 20);
+        labels[3].setBounds(5,  315, 85, 20);
         add(labels[3]);
 
         paramTextField = new TextField("2");
-        paramTextField.setBounds(90, 315, 55, 20);
+        paramTextField.setBounds(95, 315, 55, 20);
 
         paramTextField.addTextListener(e -> {
             Double result = parseDoubleAndShowError(paramTextField.getText(), 100000,
