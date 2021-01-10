@@ -5,6 +5,7 @@ package com.alekseyld.ui.plotframe.controls;
  */
 
 import com.alekseyld.model.GraphParams;
+import com.alekseyld.model.GraphicsFunc;
 import com.alekseyld.service.GraphParamService;
 import com.alekseyld.service.base.IObservableService;
 import com.alekseyld.service.base.ISaveableService;
@@ -61,6 +62,13 @@ public class ButtonPanelPresenter extends AbstractPresenter<IButtonPanelView> im
     }
 
     @Override
+    public void graphFuncChanged(GraphicsFunc graphicsFunc) {
+        updateGraphParams(
+                mGraphParamsService.get().setGraphicsFunc(graphicsFunc)
+        );
+    }
+
+    @Override
     public void needGridChanged(boolean needGrid) {
         updateGraphParams(
                 mGraphParamsService.get().setNeedGrid(needGrid)
@@ -79,6 +87,13 @@ public class ButtonPanelPresenter extends AbstractPresenter<IButtonPanelView> im
     public void paramAChanged(double a) {
         updateGraphParams(
                 mGraphParamsService.get().setParamA(a)
+        );
+    }
+
+    @Override
+    public void paramA2Changed(double a) {
+        updateGraphParams(
+                mGraphParamsService.get().setParamA2(a)
         );
     }
 

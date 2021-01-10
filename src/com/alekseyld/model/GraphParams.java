@@ -14,8 +14,10 @@ public class GraphParams implements Serializable {
                 .setGraphColor(GraphColors.RED)
                 .setNeedGrid(true)
                 .setGridColor(GridColors.GREEN)
+                .setGraphicsFunc(GraphicsFunc.FIRST)
                 .setIntervalTo(15)
                 .setParamA(2)
+                .setParamA2(4)
                 .setIntervalFrom(0)
                 .setMinY(0)
                 .setMaxY(50);
@@ -23,16 +25,28 @@ public class GraphParams implements Serializable {
 
     private GraphColors graphColor;
 
+    private GraphicsFunc graphicsFunc;
+
     private boolean needGrid;
     private GridColors gridColor;
 
     private double paramA;
+    private double paramA2;
 
     private double intervalTo;
     private double intervalFrom;
 
     private double minY;
     private double maxY;
+
+    public GraphicsFunc getGraphicsFunc() {
+        return graphicsFunc;
+    }
+
+    public GraphParams setGraphicsFunc(GraphicsFunc graphicsFunc) {
+        this.graphicsFunc = graphicsFunc;
+        return this;
+    }
 
     public GraphColors getGraphColorEnum() {
         return graphColor;
@@ -66,6 +80,15 @@ public class GraphParams implements Serializable {
 
     public GraphParams setParamA(double paramA) {
         this.paramA = paramA;
+        return this;
+    }
+
+    public double getParamA2() {
+        return paramA2;
+    }
+
+    public GraphParams setParamA2(double paramA2) {
+        this.paramA2 = paramA2;
         return this;
     }
 

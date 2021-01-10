@@ -1,6 +1,7 @@
 package com.alekseyld.ui.plotframe.controls;
 
 import com.alekseyld.model.GraphParams;
+import com.alekseyld.model.GraphicsFunc;
 import com.alekseyld.ui.base.view.AbstractViewPanel;
 import com.alekseyld.ui.plotframe.controls.interfaces.IButtonPanelPresenter;
 import com.alekseyld.ui.plotframe.controls.interfaces.IButtonPanelView;
@@ -25,6 +26,7 @@ public class ButtonPanel extends AbstractViewPanel<IButtonPanelPresenter> implem
     private Checkbox needGridCheckboxes;
 
     private Choice gridColorChoice;
+    private Choice graphFuncChoice;
 
     private TextField minYTextField;
     private TextField maxYTextField;
@@ -37,6 +39,7 @@ public class ButtonPanel extends AbstractViewPanel<IButtonPanelPresenter> implem
     private Button buttonClose;
 
     private TextField paramTextField;
+    private TextField paramTextField2;
 
     private final int FONT_SIZE = 12;
 
@@ -49,7 +52,7 @@ public class ButtonPanel extends AbstractViewPanel<IButtonPanelPresenter> implem
         setBounds(xP, yP, wP, hP);
         setBackground(Color.LIGHT_GRAY);
 
-        labels = new Label[7];
+        labels = new Label[8];
 
         SetUpColorsPickers(wP);
 
@@ -105,10 +108,28 @@ public class ButtonPanel extends AbstractViewPanel<IButtonPanelPresenter> implem
     }
 
     private void SetUpParameterPickers(int wP) {
-        labels[4] = new Label("График функции y(x)=a^x", Label.CENTER);
-        labels[4].setFont(new Font("Aria", Font.BOLD, FONT_SIZE));
-        labels[4].setBounds(5,  180, wP - 10, 30);
-        add(labels[4]);
+//        labels[4] = new Label("График функции y(x)=a^x", Label.CENTER);
+//        labels[4].setFont(new Font("Aria", Font.BOLD, FONT_SIZE));
+//        labels[4].setBounds(5,  180, wP - 10, 30);
+//        add(labels[4]);
+
+//        labels[4] = new Label("График функции y(x)=a^x", Label.CENTER);
+//        labels[4].setFont(new Font("Aria", Font.BOLD, FONT_SIZE));
+//        labels[4].setBounds(5,  180, wP - 10, 30);
+//        add(labels[4]);
+
+        graphFuncChoice = new Choice();
+        graphFuncChoice.add(GraphicsFunc.FIRST.getName());
+        graphFuncChoice.add(GraphicsFunc.SECOND.getName());
+        graphFuncChoice.setBounds(5, 180, wP - 10, 30);
+
+        graphFuncChoice.addItemListener(e -> {
+            gridColorChoice.setEnabled(e.getStateChange() == ItemEvent.SELECTED);
+            mPresenter.graphFuncChanged(GraphicsFunc.getEnumByName(graphFuncChoice.getSelectedItem()));
+        });
+
+        add(graphFuncChoice);
+
 
         labels[1] = new Label("от у= ", Label.LEFT);
         labels[1].setFont(new Font("Aria", Font.BOLD, FONT_SIZE));
@@ -260,6 +281,29 @@ public class ButtonPanel extends AbstractViewPanel<IButtonPanelPresenter> implem
         });
 
         add(paramTextField);
+
+        labels[4] = new Label("Параметр а2 = ", Label.CENTER);
+        labels[4].setFont(new Font("Aria", Font.BOLD, FONT_SIZE));
+        labels[4].setBounds(5,  340, 85, 20);
+        add(labels[4]);
+
+        paramTextField2 = new TextField("2");
+        paramTextField2.setBounds(95, 340, 55, 20);
+
+        paramTextField2.addTextListener(e -> {
+            Double result = parseDoubleAndShowError(paramTextField2.getText(), 100000,
+                    "параметра а");
+
+            if (result != null) {
+                mPresenter.paramA2Changed(result);
+            } else {
+                if (paramTextField2.getText().equals("-")) return;
+
+                paramTextField2.setText("");
+            }
+        });
+
+        add(paramTextField2);
     }
 
     private Double parseDoubleAndShowError(String doubleValue, int max, String nameForError) {

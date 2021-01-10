@@ -33,9 +33,9 @@ public class Plotter {
         return hG;
     }
 
-    private  double myFunc(double a, double x) {
-        return Math.pow(a, x);
-    }
+//    private  double myFunc(double a, double x) {
+//        return Math.pow(a, x);
+//    }
 
     public void plot(Graphics Fig, GraphParams graphParams, Coordinates coordinates) {
 
@@ -101,7 +101,12 @@ public class Plotter {
         int h1, h2, w1, w2;
 
         x1 = Xmin;
-        y1 = myFunc(graphParams.getParamA(), x1);
+//        y1 = myFunc(graphParams.getParamA(), x1);
+        y1 = graphParams.getGraphicsFunc().getFunc().calculate(
+                graphParams.getParamA(),
+                graphParams.getParamA2(),
+                x1
+        );
         w1 = s;
         h1 = h + s - (int)Math.round(y1/dy);
         int step = 5;
@@ -111,8 +116,18 @@ public class Plotter {
         //Отрисовка кривой графика
         for (int i = 0; i < w; i += step) {
             x2 = i * dx;
-            double y = myFunc(graphParams.getParamA(), i);
-            y2 = myFunc(graphParams.getParamA(), x2);
+//            double y = myFunc(graphParams.getParamA(), i);
+            double y = graphParams.getGraphicsFunc().getFunc().calculate(
+                    graphParams.getParamA(),
+                    graphParams.getParamA2(),
+                    i
+            );
+//            y2 = myFunc(graphParams.getParamA(), x2);
+            y2 = graphParams.getGraphicsFunc().getFunc().calculate(
+                    graphParams.getParamA(),
+                    graphParams.getParamA2(),
+                    x2
+            );
 
             coordinates.getCoordinates().put((double) i, y);
 

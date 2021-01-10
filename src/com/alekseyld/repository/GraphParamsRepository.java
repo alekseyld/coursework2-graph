@@ -20,7 +20,8 @@ public class GraphParamsRepository extends AbstractModelRepository<GraphParams, 
         model.setGraphColor(obj.getGraphColorEnum())
                 .setGridColor(obj.getGridColorEnum())
                 .setIntervalTo(obj.getIntervalTo())
-                .setParamA(obj.getParamA());
+                .setParamA(obj.getParamA())
+                .setParamA2(obj.getParamA2());
     }
 
     @Override

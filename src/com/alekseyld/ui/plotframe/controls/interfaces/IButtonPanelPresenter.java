@@ -5,6 +5,7 @@ package com.alekseyld.ui.plotframe.controls.interfaces;
  */
 
 import com.alekseyld.model.GraphParams;
+import com.alekseyld.model.GraphicsFunc;
 import com.alekseyld.ui.base.presenter.IPresenter;
 
 import java.io.File;
@@ -18,10 +19,12 @@ public interface IButtonPanelPresenter
 
     void graphColorChanged(GraphParams.GraphColors color);
     void gridColorChanged(GraphParams.GridColors color);
+    void graphFuncChanged(GraphicsFunc graphicsFunc);
     void needGridChanged(boolean needGrid);
     void intervalToChanged(double xmax);
     void intervalFromChanged(double xmin);
     void paramAChanged(double a);
+    void paramA2Changed(double a);
     void minYChanged(double ymin);
     void maxYChanged(double ymax);
 
