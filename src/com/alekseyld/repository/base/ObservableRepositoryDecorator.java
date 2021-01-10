@@ -9,7 +9,8 @@ import com.alekseyld.observable.Observer;
 
 import java.util.Vector;
 
-public class ObservableRepositoryDecorator<T, DistType> implements IRepository<T, DistType>, Observable<T> {
+public class ObservableRepositoryDecorator<T, DistType>
+        implements IRepository<T, DistType>, Observable<T> {
 
     private IRepository<T, DistType> decoratedRepository;
 

@@ -15,15 +15,18 @@ public class ServiceLocator {
         return locatorInstance;
     }
 
-    public static  <ServiceType extends IService> IService getService(Class<ServiceType> type){
+    public static  <ServiceType extends IService> IService
+        getService(Class<ServiceType> type){
         return getInstance().createOrGetInstance(type);
     }
 
-    public static  <ServiceType extends ISaveableService> ISaveableService getSaveableService(Class<ServiceType> type){
+    public static  <ServiceType extends ISaveableService> ISaveableService
+        getSaveableService(Class<ServiceType> type){
         return (ISaveableService) getInstance().createOrGetInstance(type);
     }
 
-    public static  <ServiceType extends IObservableService> IObservableService getObservableService(Class<ServiceType> type){
+    public static  <ServiceType extends IObservableService> IObservableService
+        getObservableService(Class<ServiceType> type){
         return (IObservableService) getInstance().createOrGetInstance(type);
     }
 
@@ -51,5 +54,4 @@ public class ServiceLocator {
             return null;
         }
     }
-
 }

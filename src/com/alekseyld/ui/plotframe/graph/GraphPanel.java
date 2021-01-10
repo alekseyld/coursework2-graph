@@ -3,7 +3,6 @@ package com.alekseyld.ui.plotframe.graph;
 import com.alekseyld.model.Coordinates;
 import com.alekseyld.model.GraphParams;
 import com.alekseyld.ui.base.view.AbstractViewPanel;
-import com.alekseyld.ui.plotframe.controls.ButtonPanel;
 import com.alekseyld.ui.plotframe.graph.interfaces.IGraphPanelPresenter;
 import com.alekseyld.ui.plotframe.graph.interfaces.IGraphPanelView;
 
@@ -13,7 +12,7 @@ public class GraphPanel extends AbstractViewPanel<IGraphPanelPresenter> implemen
 
     private Plotter mPlotter;
 
-    public GraphPanel(IGraphPanelPresenter presenter, int x, int y, int wG, int hG, ButtonPanel buttonPanel) {
+    public GraphPanel(IGraphPanelPresenter presenter, int x, int y, int wG, int hG) {
         super(presenter);
 
         mPlotter = new Plotter(wG, hG);

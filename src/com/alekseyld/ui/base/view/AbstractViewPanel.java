@@ -8,7 +8,8 @@ import com.alekseyld.ui.base.presenter.IPresenter;
 
 import java.awt.*;
 
-public class AbstractViewPanel<Presenter extends IPresenter> extends Panel implements IView<Presenter> {
+public class AbstractViewPanel<Presenter extends IPresenter>
+        extends Panel implements IView<Presenter> {
 
     protected Presenter mPresenter;
 

@@ -344,7 +344,8 @@ public class ButtonPanel extends AbstractViewPanel<IButtonPanelPresenter> implem
         JFileChooser fileChooser = new JFileChooser();
         fileChooser.setCurrentDirectory(new java.io.File("."));
         fileChooser.setDialogTitle("Открыть график");
-        FileNameExtensionFilter filter = new FileNameExtensionFilter("График", "gph");
+        FileNameExtensionFilter filter =
+                new FileNameExtensionFilter("График", "gph");
         fileChooser.addChoosableFileFilter(filter);
         fileChooser.setAcceptAllFileFilterUsed(false);
 

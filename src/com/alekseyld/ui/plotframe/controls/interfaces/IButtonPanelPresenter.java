@@ -13,7 +13,8 @@ import java.io.File;
  * Created by Alekseyld on 13.4.2019.
  */
 
-public interface IButtonPanelPresenter extends IPresenter<IButtonPanelView> {
+public interface IButtonPanelPresenter
+        extends IPresenter<IButtonPanelView> {
 
     void graphColorChanged(GraphParams.GraphColors color);
     void gridColorChanged(GraphParams.GridColors color);

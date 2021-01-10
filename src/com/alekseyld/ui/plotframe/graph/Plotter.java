@@ -46,6 +46,7 @@ public class Plotter {
 
         Coordinates coordinates = new Coordinates();
 
+        //Назначение параметров графика из параметров
         Xmin = graphParams.getIntervalFrom();
         Xmax = graphParams.getIntervalTo();
 
@@ -59,15 +60,20 @@ public class Plotter {
         int h, w, s = 20;
         h = hG - 2 * s;
         w = wG - 2 * s;
+
+        //Очистка области графика
         Fig.clearRect(0,0, wG, hG);
 
         int k, nums = 10;
+
+        //Отрисовка координатных линий
         Fig.setColor(Color.BLACK);
         Fig.drawLine(s, s, s, h + s);
         Fig.drawLine(s, s + h, s + w, s + h);
 
         int maxYCoordinate = 1000;
 
+        //Отрисовка засечек и чисел на координатной оси
         for (k = 0; k <= nums; k++) {
             Fig.drawLine(s+k*w/nums, s+h,s+k*w/nums, s+h+5);
             Fig.drawLine(s-5, s+k*h/nums, s, s + k*h/nums);
@@ -76,6 +82,7 @@ public class Plotter {
             Fig.drawString(decimalFormat.format(Ymin+k*(Ymax - Ymin)/ nums), s - 17, maxYCoordinate);
         }
 
+        //Отрисовка координатной сетки
         if (status) {
             Fig.setColor(gclr);
             for (k = 1; k <= nums; k++) {
@@ -85,6 +92,7 @@ public class Plotter {
             }
         }
 
+        //Цвет графика
         Fig.setColor(clr);
 
         double dx = (Xmax - Xmin) / w;
@@ -100,6 +108,7 @@ public class Plotter {
 
         boolean isDrawing = true;
 
+        //Отрисовка кривой графика
         for (int i = 0; i < w; i += step) {
             x2 = i * dx;
             double y = myFunc(graphParams.getParamA(), i);
@@ -118,10 +127,6 @@ public class Plotter {
                 isDrawing = false;
             }
 
-            //Fig.drawRect(w1-w, h1-2, 4,4);
-
-            x1 = x2;
-            y1 = y2;
             w1 = w2;
             h1 = h2;
         }

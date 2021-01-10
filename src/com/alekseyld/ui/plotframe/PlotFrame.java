@@ -42,15 +42,18 @@ public class PlotFrame extends Frame {
         GraphPanelPresenter graphPanelPresenter = new GraphPanelPresenter();
         TablePanelPresenter tablePanelPresenter = new TablePanelPresenter();
 
-        ButtonPanel buttonPanel = new ButtonPanel(buttonPanelPresenter,6, 25, wF/4, hF-30);
+        ButtonPanel buttonPanel =
+                new ButtonPanel(buttonPanelPresenter,6, 25, wF/4, hF-30);
         buttonPanelPresenter.setView(buttonPanel);
         add(buttonPanel);
 
-        GraphPanel graphPanel = new GraphPanel(graphPanelPresenter,wF/4+10, 25, 3*wF/4-15, hF-120, buttonPanel);
+        GraphPanel graphPanel =
+                new GraphPanel(graphPanelPresenter,wF/4+10, 25, 3*wF/4-15, hF-120);
         graphPanelPresenter.setView(graphPanel);
         add(graphPanel);
 
-        TablePanel tablePanel = new TablePanel(tablePanelPresenter, wF/4+10, hF-90, 3*wF/4-15, 85);
+        TablePanel tablePanel =
+                new TablePanel(tablePanelPresenter, wF/4+10, hF-90, 3*wF/4-15, 85);
         tablePanelPresenter.setView(tablePanel);
         add(tablePanel);
     }
